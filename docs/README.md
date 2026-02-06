@@ -120,7 +120,7 @@ WHATSAPP_PHONE_NUMBER_ID=123456789012345
 WHATSAPP_ACCESS_TOKEN=EAAxxxxxxxxxxxxxx
 WHATSAPP_TEMPLATE_NAME=order_notification
 WHATSAPP_TEMPLATE_LANGUAGE=en
-WHATSAPP_RECIPIENT_NUMBER=6281234567890
+WHATSAPP_RECIPIENT_NUMBER=11234567890
 ```
 
 ### 2. Install dependencies and run
@@ -167,19 +167,19 @@ POST /api/v1/orders/notify
 ```json
 {
   "order_id": "ORD-20240115-001",
-  "customer_name": "Budi Santoso",
-  "total_amount": 350000,
-  "currency": "IDR",
+  "customer_name": "John Smith",
+  "total_amount": 149.99,
+  "currency": "USD",
   "items": [
     {
-      "name": "Kaos Polos Hitam",
+      "name": "Black Plain T-Shirt",
       "quantity": 2,
-      "price": 75000
+      "price": 24.99
     },
     {
-      "name": "Celana Jeans",
+      "name": "Denim Jeans",
       "quantity": 1,
-      "price": 200000
+      "price": 100.01
     }
   ]
 }
@@ -190,7 +190,7 @@ POST /api/v1/orders/notify
 | `order_id` | string | Yes | Unique order identifier |
 | `customer_name` | string | Yes | Customer's name |
 | `total_amount` | number | Yes | Order total (must be > 0) |
-| `currency` | string | Yes | Currency code (e.g., "IDR", "USD") |
+| `currency` | string | Yes | Currency code (e.g., "USD", "EUR") |
 | `items` | array | Yes | At least one item |
 | `items[].name` | string | Yes | Item name |
 | `items[].quantity` | integer | Yes | Quantity (must be > 0) |
@@ -253,12 +253,12 @@ curl -X POST http://localhost:8080/api/v1/orders/notify \
   -H "X-API-Key: your-secret-api-key" \
   -d '{
     "order_id": "ORD-001",
-    "customer_name": "Budi Santoso",
-    "total_amount": 350000,
-    "currency": "IDR",
+    "customer_name": "John Smith",
+    "total_amount": 149.99,
+    "currency": "USD",
     "items": [
-      {"name": "Kaos Polos Hitam", "quantity": 2, "price": 75000},
-      {"name": "Celana Jeans", "quantity": 1, "price": 200000}
+      {"name": "Black Plain T-Shirt", "quantity": 2, "price": 24.99},
+      {"name": "Denim Jeans", "quantity": 1, "price": 100.01}
     ]
   }'
 ```
@@ -272,7 +272,7 @@ $response = Http::withHeaders([
     'order_id' => $order->id,
     'customer_name' => $order->customer_name,
     'total_amount' => $order->total,
-    'currency' => 'IDR',
+    'currency' => 'USD',
     'items' => $order->items->map(fn($item) => [
         'name' => $item->name,
         'quantity' => $item->quantity,
@@ -294,7 +294,7 @@ const response = await fetch('http://localhost:8080/api/v1/orders/notify', {
     order_id: order.id,
     customer_name: order.customerName,
     total_amount: order.total,
-    currency: 'IDR',
+    currency: 'USD',
     items: order.items.map(item => ({
       name: item.name,
       quantity: item.quantity,
@@ -316,7 +316,7 @@ response = requests.post(
         "order_id": order.id,
         "customer_name": order.customer_name,
         "total_amount": order.total,
-        "currency": "IDR",
+        "currency": "USD",
         "items": [
             {"name": item.name, "quantity": item.qty, "price": item.price}
             for item in order.items
